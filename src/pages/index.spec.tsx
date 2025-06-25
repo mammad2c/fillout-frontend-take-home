@@ -1,5 +1,5 @@
 import { renderComponent } from "@/tests/render-component";
-import Home from ".";
+import Home from "./index.page";
 
 describe("Home Page", () => {
   it("should render", () => {
