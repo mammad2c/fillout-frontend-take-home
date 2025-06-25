@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=20.0.0",
-    "npm": ">=9.0.0",
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0",
     "yarn": "please use npm",
     "pnpm": "please use npm"
   },
@@ -15,6 +15,8 @@
     "lint": "next lint --fix --dir src",
     "lint-staged": "lint-staged --concurrent false",
     "format": "prettier --write .",
+    "test:unit": "vitest run --coverage",
+    "test:unit:watch": "vitest",
     "prepare": "husky"
   },
   "dependencies": {
@@ -27,17 +29,25 @@
     "@commitlint/config-conventional": "^19.8.1",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
     "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.6.0",
+    "@vitest/coverage-istanbul": "^3.2.4",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
     "eslint-config-prettier": "^10.1.5",
     "husky": "^9.1.7",
+    "jsdom": "^26.1.0",
     "lint-staged": "^16.1.2",
     "prettier": "3.6.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.2.4"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
