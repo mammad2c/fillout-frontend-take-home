@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/mammad2c/fillout-frontend-take-home/graph/badge.svg?token=5R4MW254MI)](https://codecov.io/gh/mammad2c/fillout-frontend-take-home)
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
 
 ## Getting Started
