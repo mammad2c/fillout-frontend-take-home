@@ -80,7 +80,7 @@ export default function ModalDialog({
           {title && (
             <DialogTitle className="text-lg font-semibold text-slate-900 dark:text-slate-50 flex items-center justify-between">
               {title}
-              <CloseButton onClick={onClose}>
+              <CloseButton onClick={onClose} aria-label="Close dialog">
                 <XCircleIcon className="h-6 w-6 text-red-600" />
               </CloseButton>
             </DialogTitle>

@@ -30,6 +30,7 @@
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@axe-core/react": "^4.10.2",
     "@chromatic-com/storybook": "^4.0.1",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
