@@ -24,6 +24,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Run linters
+        run: npm run lint
+
+      - name: Run FSD checker
+        run: npm run fsd-check
+
+      - name: Check code formatting
+        run: npm run format:check
+
       - name: Install Playwright browsers
         run: npx playwright install
 

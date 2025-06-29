@@ -14,12 +14,14 @@
     "start": "next start",
     "lint": "next lint --fix --dir src",
     "lint-staged": "lint-staged --concurrent false",
-    "format": "prettier --write .",
+    "format:fix": "prettier --write .",
+    "format:check": "prettier --check .",
     "test:unit": "vitest run --coverage",
     "test:unit:watch": "vitest",
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "fsd-check": "steiger ./src --config steiger.config.mjs"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
@@ -35,6 +37,7 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@eslint/eslintrc": "^3.3.1",
+    "@feature-sliced/steiger-plugin": "^0.5.6",
     "@storybook/addon-a11y": "^9.0.14",
     "@storybook/addon-docs": "^9.0.14",
     "@storybook/addon-onboarding": "^9.0.14",
@@ -63,6 +66,7 @@
     "lint-staged": "^16.1.2",
     "playwright": "^1.53.1",
     "prettier": "3.6.2",
+    "steiger": "^0.5.7",
     "storybook": "^9.0.14",
     "tailwindcss": "^4",
     "typescript": "^5",
@@ -73,6 +77,6 @@
     "*.{js,jsx,ts,tsx}": [
       "npm run lint"
     ],
-    "**/*": "npm run format"
+    "**/*": "npm run format:check"
   }
 }
