@@ -4,7 +4,7 @@ import { Button } from "@headlessui/react";
 import { useArgs } from "storybook/internal/preview-api";
 
 const meta: Meta<typeof ModalDialog> = {
-  title: "Design System/ModalDialog",
+  title: "Shared/UI/ModalDialog",
   component: ModalDialog,
   tags: ["autodocs"],
 };
