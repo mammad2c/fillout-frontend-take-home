@@ -18,6 +18,11 @@ const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   eslintConfigPrettier,
   ...storybook.configs["flat/recommended"],
+  {
+    rules: {
+      "@typescript-eslint/consistent-type-imports": "error",
+    },
+  },
 ];
 
 export default eslintConfig;

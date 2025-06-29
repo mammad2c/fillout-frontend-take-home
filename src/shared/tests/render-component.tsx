@@ -1,5 +1,7 @@
-import React, { ReactElement } from "react";
-import { render, RenderOptions } from "@testing-library/react";
+import type { ReactElement } from "react";
+import React from "react";
+import type { RenderOptions } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
