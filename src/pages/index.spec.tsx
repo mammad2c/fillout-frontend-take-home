@@ -1,4 +1,4 @@
-import { renderComponent } from "@/tests/render-component";
+import { renderComponent } from "@/shared/tests/render-component";
 import Home from "./index.page";
 
 describe("Home Page", () => {

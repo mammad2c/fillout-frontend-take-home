@@ -1,4 +1,4 @@
-import { renderComponent, waitFor } from "@/tests/render-component";
+import { renderComponent, waitFor } from "@/shared/tests/render-component";
 import { ModalDialog } from ".";
 import axe from "axe-core";
 import { useState } from "react";

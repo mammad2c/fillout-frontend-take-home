@@ -29,7 +29,7 @@ export default defineConfig({
           browser: {
             enabled: false,
           },
-          setupFiles: ["src/tests/setup.ts"],
+          setupFiles: ["src/shared/tests/setup.ts"],
         },
       },
       {
