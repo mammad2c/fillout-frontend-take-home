@@ -4,7 +4,7 @@ import {
   TrashIcon,
 } from "@heroicons/react/20/solid";
 import { usePageStepStore } from "@/entities/page-step/model/use-page-step-store";
-import { ContextMenu } from "@/shared/ui/ContextMenu";
+import { ContextMenu } from "@/shared/ui/context-menu";
 
 export function PageStepContextMenu({
   id,

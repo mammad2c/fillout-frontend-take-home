@@ -30,7 +30,7 @@ export interface ContextMenuProps {
   className?: string;
 }
 
-export default function ContextMenu({
+export function ContextMenu({
   children,
   items,
   className = "",

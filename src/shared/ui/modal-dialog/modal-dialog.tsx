@@ -41,7 +41,7 @@ const SIZE_MAP = {
   xl: "max-w-4xl",
 };
 
-export default function ModalDialog({
+export function ModalDialog({
   isOpen,
   onClose,
   title,

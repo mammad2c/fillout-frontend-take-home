@@ -1,4 +1,4 @@
-import ModalDialog from "./ModalDialog";
+import { ModalDialog } from ".";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { useArgs } from "storybook/internal/preview-api";
 import { Button } from "@/shared/ui/button";
