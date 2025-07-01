@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import type { PageStep } from "./types";
-import { genId } from "@/shared/lib/genId";
+import { genId } from "@/shared/lib/id";
 
 const id1 = "1";
 const id2 = "2";
