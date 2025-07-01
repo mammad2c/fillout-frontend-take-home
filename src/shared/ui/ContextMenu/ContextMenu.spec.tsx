@@ -2,7 +2,7 @@ import { renderComponent } from "@/shared/tests/render-component";
 import { ContextMenu } from ".";
 import type { ReactNode } from "react";
 import { useState } from "react";
-import { Button } from "../Button";
+import { Button } from "../button";
 import axe from "axe-core";
 
 function Component() {

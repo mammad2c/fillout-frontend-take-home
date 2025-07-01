@@ -9,7 +9,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: (typeof variantStyles)[keyof typeof variantStyles];
 }
 
-export default function Button({
+export function Button({
   children,
   onClick,
   className = "",

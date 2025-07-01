@@ -1,7 +1,7 @@
 import ModalDialog from "./ModalDialog";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { useArgs } from "storybook/internal/preview-api";
-import { Button } from "@/shared/ui/Button";
+import { Button } from "@/shared/ui/button";
 
 const meta: Meta<typeof ModalDialog> = {
   title: "Shared/UI/ModalDialog",

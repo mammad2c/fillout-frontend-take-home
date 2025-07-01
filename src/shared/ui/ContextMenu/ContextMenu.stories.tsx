@@ -1,6 +1,6 @@
 import { ContextMenu } from ".";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { Button } from "@/shared/ui/Button";
+import { Button } from "@/shared/ui/button";
 import type { ReactNode } from "react";
 import { useState } from "react";
 
