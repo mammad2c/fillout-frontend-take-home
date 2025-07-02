@@ -40,6 +40,7 @@ interface PageStepState {
   rename(id: string, title: string): void;
   duplicate(id: string): void;
   remove(id: string): void;
+  setAsFirstPage(id: string): void;
 }
 
 export const usePageStepStore = create<PageStepState>((set) => ({
@@ -65,7 +66,14 @@ export const usePageStepStore = create<PageStepState>((set) => ({
       const pageSteps = Array.from(s.pageSteps);
       const [item] = pageSteps.splice(src, 1);
       pageSteps.splice(dst, 0, item);
-      return { pageSteps };
+
+      let firstPageId = s.firstPageId;
+
+      if (pageSteps[0].id !== s.firstPageId) {
+        firstPageId = pageSteps[0].id;
+      }
+
+      return { pageSteps, firstPageId };
     }),
   select: (id) => set({ activeId: id }),
   rename: (id, name) =>
@@ -86,4 +94,13 @@ export const usePageStepStore = create<PageStepState>((set) => ({
       pageSteps: s.pageSteps.filter((p) => p.id !== id),
       activeId: s.activeId === id ? (s.pageSteps[0]?.id ?? "") : s.activeId,
     })),
+  setAsFirstPage: (id) =>
+    set((s) => {
+      const idx = s.pageSteps.findIndex((p) => p.id === id);
+      if (idx === -1) return {};
+      const pageSteps = [...s.pageSteps];
+      pageSteps.splice(idx, 1);
+      pageSteps.unshift(s.pageSteps[idx]);
+      return { pageSteps, firstPageId: id };
+    }),
 }));

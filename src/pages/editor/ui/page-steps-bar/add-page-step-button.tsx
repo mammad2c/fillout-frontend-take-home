@@ -1,4 +1,4 @@
-import { PlusIcon } from "@heroicons/react/20/solid";
+import { PlusIcon } from "@heroicons/react/24/outline";
 import { Button } from "@headlessui/react";
 import { usePageStepStore } from "@/entities/page-step";
 

@@ -12,16 +12,16 @@ import {
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
 import { usePageStepStore } from "@/entities/page-step/model/use-page-step-store";
-import { PageStepChip } from "@/entities/page-step/ui/page-step-chip";
-import { PageStepContextMenu } from "@/pages/editor/ui/page-steps-bar/page-step-context-menu";
-import { Sortable } from "@/shared/ui/sortable";
+import { PageStepChip } from "./page-step-chip";
 import { restrictToHorizontalAxis } from "@dnd-kit/modifiers";
-// import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { AddPageStepButton } from "./add-page-step-button";
 
 export function PageStepsBar() {
   const pageSteps = usePageStepStore((s) => s.pageSteps);
-  const reorder = usePageStepStore((s) => s.reorder);
+  const reorderPageSteps = usePageStepStore((s) => s.reorder);
+  const selectPageStep = usePageStepStore((s) => s.select);
+  const activeId = usePageStepStore((s) => s.activeId);
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -44,12 +44,16 @@ export function PageStepsBar() {
       const oldIndex = pageSteps.findIndex((p) => p.id === active.id);
       const newIndex = pageSteps.findIndex((p) => p.id === over.id);
 
-      reorder(oldIndex, newIndex);
+      reorderPageSteps(oldIndex, newIndex);
     }
   }
 
+  function handleSelect(id: string) {
+    selectPageStep(id);
+  }
+
   return (
-    <div className="bg-white border-b px-4 py-2 overflow-x-auto flex">
+    <div className="bg-white border-b px-4 py-2 overflow-x-auto flex w-full">
       <AddPageStepButton index={0} />
 
       <DndContext
@@ -61,15 +65,18 @@ export function PageStepsBar() {
           items={pageSteps}
           strategy={horizontalListSortingStrategy}
         >
-          {pageSteps.map((p) => (
-            <Sortable id={p.id} key={p.id}>
-              <PageStepContextMenu id={p.id}>
-                <div>
-                  <PageStepChip pageStep={p} />
-                </div>
-              </PageStepContextMenu>
-            </Sortable>
-          ))}
+          {pageSteps.map((p) => {
+            const { id } = p;
+
+            return (
+              <PageStepChip
+                key={id}
+                pageStep={p}
+                onSelect={handleSelect}
+                isActive={id === activeId}
+              />
+            );
+          })}
         </SortableContext>
       </DndContext>
     </div>
