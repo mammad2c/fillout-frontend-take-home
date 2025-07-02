@@ -6,6 +6,9 @@ const button = {
   show: {
     opacity: 1,
     scale: 1,
+    transition: {
+      delay: 0.3,
+    },
   },
 };
 
@@ -15,6 +18,9 @@ const dashedLine = {
   },
   show: {
     width: 56,
+    transition: {
+      delay: 0.3,
+    },
   },
 };
 
@@ -29,6 +35,7 @@ export function Connector({ onClick }: ConnectorProps) {
       initial="hidden"
       whileHover="show"
       className="relative inline-flex items-center select-none py-1.5"
+      transition={{ delay: 1 }}
     >
       {/* 20-pixel dashed line */}
       <motion.div
