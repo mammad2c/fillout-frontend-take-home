@@ -25,9 +25,11 @@ export const Default: Story = {
     const [clickedItem, setClickedItem] = useState<ReactNode | null>(null);
 
     args.items.forEach((item) => {
-      item.onClick = () => {
-        setClickedItem(item.label);
-      };
+      if ("onClick" in item && typeof item.onClick === "function") {
+        item.onClick = () => {
+          setClickedItem("label" in item ? item.label : null);
+        };
+      }
     });
 
     return (
