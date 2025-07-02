@@ -30,7 +30,7 @@ export function PageStepChip({
     transform,
     node,
     isDragging,
-    isOver,
+    isSorting,
   } = useSortable({ id: pageStep.id, transition: null });
 
   function triggerContextMenuFromIconClick(
@@ -101,7 +101,7 @@ export function PageStepChip({
         }}
       >
         <div className="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-1.5">
-          <motion.span layout={!isDragging && !isOver}>
+          <motion.span layout={!isSorting}>
             <PageStepIcon
               type={pageStep.type}
               className={clsx("w-5 h-5 page-step-chip-icon", {
@@ -113,7 +113,7 @@ export function PageStepChip({
           </motion.span>
 
           <motion.p
-            layout={!isDragging && !isOver}
+            layout={!isSorting}
             className="flex-grow-0 flex-shrink-0 text-sm font-medium text-center text-[#677289]"
           >
             {pageStep.name}
