@@ -4,7 +4,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { PageStepSettingsMenu } from "@/pages/editor/ui/page-steps-bar/page-step-settings-menu";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { PageStepIcon } from "@/entities/page-step";
-import * as motion from "motion/react-client";
+import { motion } from "motion/react";
 
 interface PageStepChipProps {
   pageStep: PageStep;
@@ -23,8 +23,15 @@ export function PageStepChip({
   isActive,
   onSelect,
 }: PageStepChipProps) {
-  const { attributes, listeners, setNodeRef, transform, node, isDragging } =
-    useSortable({ id: pageStep.id, transition: null });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    node,
+    isDragging,
+    isOver,
+  } = useSortable({ id: pageStep.id, transition: null });
 
   function triggerContextMenuFromIconClick(
     e: React.MouseEvent | React.KeyboardEvent,
@@ -66,7 +73,7 @@ export function PageStepChip({
         onClick={handleClick}
         layoutId={pageStep.id}
         className={clsx(
-          "flex justify-center items-center px-2.5 h-8 py-1 rounded-lg border-1 mr-2 transition-background-color focus:border-[#2f72e2] focus:shadow-[0px_0px_0px_1.5px_rgba(47,114,226,0.25),_0px_1px_1px_rgba(0,0,0,0.02),_0px_1px_3px_rgba(0,0,0,0.04)]",
+          "flex justify-center items-center px-2.5 h-8 py-1 rounded-lg border-1 transition-background-color focus:border-[#2f72e2] focus:shadow-[0px_0px_0px_1.5px_rgba(47,114,226,0.25),_0px_1px_1px_rgba(0,0,0,0.02),_0px_1px_3px_rgba(0,0,0,0.04)]",
           {
             "bg-[#9da4b2]/[0.15] border-transparent hover:bg-[#9da4b2]/[0.35]":
               !isActive,
@@ -91,29 +98,29 @@ export function PageStepChip({
           boxShadow: {
             delay: isDragging ? 0 : 0.25,
           },
-          backgroundColor: {
-            delay: 0,
-            duration: 0.25,
-          },
         }}
       >
         <div className="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-1.5">
-          <PageStepIcon
-            type={pageStep.type}
-            className={clsx("w-5 h-5 page-step-chip-icon", {
-              "text-[#677289]": !isActive,
-              "text-[#F59D0E]": isActive,
-            })}
-            onClick={triggerContextMenuFromIconClick}
-          />
+          <motion.span layout={!isDragging && !isOver}>
+            <PageStepIcon
+              type={pageStep.type}
+              className={clsx("w-5 h-5 page-step-chip-icon", {
+                "text-[#677289]": !isActive,
+                "text-[#F59D0E]": isActive,
+              })}
+              onClick={triggerContextMenuFromIconClick}
+            />
+          </motion.span>
 
-          <p className="flex-grow-0 flex-shrink-0 text-sm font-medium text-center text-[#677289]">
+          <motion.p
+            layout={!isDragging && !isOver}
+            className="flex-grow-0 flex-shrink-0 text-sm font-medium text-center text-[#677289]"
+          >
             {pageStep.name}
-          </p>
+          </motion.p>
 
           {isActive ? (
             <motion.span
-              layout
               initial={{ opacity: 0, transform: "scale(0)" }}
               animate={{ opacity: 1, transform: "scale(1)" }}
               transition={{ duration: 0.25 }}

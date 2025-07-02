@@ -15,6 +15,7 @@ import { usePageStepStore } from "@/entities/page-step/model/use-page-step-store
 import { PageStepChip } from "./page-step-chip";
 import { restrictToHorizontalAxis } from "@dnd-kit/modifiers";
 import { AddPageStepButton } from "./add-page-step-button";
+import { Connector } from "./connector";
 
 export function PageStepsBar() {
   const pageSteps = usePageStepStore((s) => s.pageSteps);
@@ -65,16 +66,19 @@ export function PageStepsBar() {
           items={pageSteps}
           strategy={horizontalListSortingStrategy}
         >
-          {pageSteps.map((p) => {
+          {pageSteps.map((p, index) => {
             const { id } = p;
 
             return (
-              <PageStepChip
-                key={id}
-                pageStep={p}
-                onSelect={handleSelect}
-                isActive={id === activeId}
-              />
+              <div key={id} className="flex items-center">
+                <PageStepChip
+                  pageStep={p}
+                  onSelect={handleSelect}
+                  isActive={id === activeId}
+                />
+
+                {index < pageSteps.length - 1 && <Connector />}
+              </div>
             );
           })}
         </SortableContext>
