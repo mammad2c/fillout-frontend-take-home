@@ -66,9 +66,10 @@ export function PageStepChip({
         onClick={handleClick}
         layoutId={pageStep.id}
         className={clsx(
-          "flex justify-center items-center px-2.5 h-8 py-1 rounded-lg border-1 mr-2 transition-background-color focus:border-[#2f72e2] focus:shadow-[0px_0px_0px_1.5px_rgba(47,114,226,0.25),_0px_1px_1px_rgba(0,0,0,0.02),_0px_1px_3px_rgba(0,0,0,0.04)] ",
+          "flex justify-center items-center px-2.5 h-8 py-1 rounded-lg border-1 mr-2 transition-background-color focus:border-[#2f72e2] focus:shadow-[0px_0px_0px_1.5px_rgba(47,114,226,0.25),_0px_1px_1px_rgba(0,0,0,0.02),_0px_1px_3px_rgba(0,0,0,0.04)]",
           {
-            "bg-[#9da4b2]/[0.15] border-transparent": !isActive,
+            "bg-[#9da4b2]/[0.15] border-transparent hover:bg-[#9da4b2]/[0.35]":
+              !isActive,
             "bg-white border-[#e1e1e1]": isActive,
             "cursor-grabbing": isDragging,
           },
