@@ -94,15 +94,15 @@ export function PageStepForm() {
     resolver: zodResolver(schema),
   });
 
+  function handleClose() {
+    hideForm();
+    reset();
+  }
+
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
     addPageStep(data, prevPageStepId);
     hideForm();
-    reset();
   };
-
-  if (!isShowingForm) {
-    return null;
-  }
 
   // we need to use a ref to focus the input
   const { ref: hookFormRef, ...rest } = register("name");
@@ -121,7 +121,7 @@ export function PageStepForm() {
   return (
     <ModalDialog
       isOpen={isShowingForm}
-      onClose={hideForm}
+      onClose={handleClose}
       initialFocus={nameRef}
       title="Create Page"
     >
