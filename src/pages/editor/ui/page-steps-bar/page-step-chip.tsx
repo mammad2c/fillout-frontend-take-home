@@ -78,7 +78,7 @@ export function PageStepChip({
           {
             "bg-[#9da4b2]/[0.15] border-transparent hover:bg-[#9da4b2]/[0.35]":
               !isActive,
-            "bg-white border-[#e1e1e1]": isActive,
+            "bg-white border-[#e1e1e1] active": isActive,
             "cursor-grabbing": isDragging,
           },
         )}

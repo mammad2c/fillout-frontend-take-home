@@ -42,6 +42,7 @@ export function Connector({ onClick }: ConnectorProps) {
       whileHover="show"
       className="relative inline-flex items-center select-none py-1.5"
       transition={{ delay: 1 }}
+      aria-hidden
     >
       {/* 20-pixel dashed line */}
       <motion.div

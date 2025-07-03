@@ -1,8 +1,61 @@
 import { renderComponent, waitFor } from "@/shared/tests/render-component";
 import { PageStepsBar } from "./page-steps-bar";
 import axe from "axe-core";
+import type { PageStep } from "@/entities/page-step";
+import { usePageStepStore } from "@/entities/page-step";
+import { usePageStepForm } from "@/entities/page-step/ui/page-step-form";
+import { useEffect } from "react";
 
 describe(PageStepsBar.name, () => {
+  beforeEach(() => {
+    // in here we clean up after each test
+
+    const Component = () => {
+      const initPageStepState = usePageStepStore((s) => s.init);
+
+      useEffect(() => {
+        const id1 = "1";
+        const id2 = "2";
+        const id3 = "3";
+        const id4 = "4";
+
+        const pageSteps: PageStep[] = [
+          {
+            id: id1,
+            name: "Info",
+            type: "cover",
+          },
+          {
+            id: id2,
+            name: "Form 1",
+            type: "form",
+          },
+          {
+            id: id3,
+            name: "Form 2",
+            type: "form",
+          },
+          {
+            id: id4,
+            name: "Ending",
+            type: "ending",
+          },
+        ];
+
+        initPageStepState({
+          pageSteps,
+          activeId: id1,
+          firstPageId: id1,
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, []);
+
+      return <></>;
+    };
+
+    renderComponent(<Component />);
+  });
+
   it("should renders correctly", async () => {
     // Arrange
     const { container } = renderComponent(<PageStepsBar />);
@@ -35,6 +88,22 @@ describe(PageStepsBar.name, () => {
     expect(results.violations.length).toBe(0);
   });
 
+  it("should open context menu on icon click", async () => {
+    // Arrange
+    const { user, getByText } = renderComponent(<PageStepsBar />);
+
+    // Act
+    const form1 = getByText("Form 1");
+    await user.click(form1);
+
+    await user.click(form1.parentElement!.querySelector("svg")!);
+
+    // Assert
+    await waitFor(() => {
+      expect(getByText("Duplicate")).toBeInTheDocument();
+    });
+  });
+
   it("should add page step", async () => {
     // Arrange
     const { user, getByText, getByLabelText, queryByText } = renderComponent(
@@ -43,22 +112,61 @@ describe(PageStepsBar.name, () => {
 
     // Act
     await user.click(getByText("Add page"));
-
-    // Assert
     await waitFor(() => {
       expect(getByText("Create Page")).toBeInTheDocument();
     });
 
-    // Arrange
+    // Assert
     await user.type(getByLabelText("Name"), "New Page");
     await user.click(getByLabelText("Form"));
     await user.click(getByText("Submit"));
 
-    // Assert
     await waitFor(() => {
       expect(queryByText("Create Page")).toBe(null);
       expect(getByText("New Page")).toBeInTheDocument();
     });
+  });
+
+  it("should add page step after specific page step", async () => {
+    // Arrange
+    const Component = () => {
+      const firstPageStep = usePageStepStore((s) => s.pageSteps)[0];
+      const showForm = usePageStepForm((s) => s.showForm);
+
+      function handleClick() {
+        showForm({ prevPageStepId: firstPageStep.id });
+      }
+
+      return (
+        <>
+          <PageStepsBar />
+          <button onClick={handleClick}>Add after info</button>
+        </>
+      );
+    };
+
+    const { user, getByText, getByLabelText, queryByText, container } =
+      renderComponent(<Component />);
+
+    // Act
+    await user.click(getByText("Add after info"));
+    await waitFor(() => {
+      expect(getByText("Create Page")).toBeInTheDocument();
+    });
+
+    // Assert
+    await user.type(getByLabelText("Name"), "After info");
+    await user.click(getByLabelText("Form"));
+    await user.click(getByText("Submit"));
+
+    await waitFor(() => {
+      expect(queryByText("Create Page")).toBe(null);
+      expect(getByText("After info")).toBeInTheDocument();
+    });
+
+    expect(container.querySelectorAll(".pages-step-chip")[1].textContent).toBe(
+      "After info",
+    );
   });
 
   it("should add as first page step", async () => {

@@ -3,38 +3,10 @@ import type { PageStep } from "./types";
 import { genId } from "@/shared/lib/id";
 import { produce } from "immer";
 
-const id1 = "1";
-const id2 = "2";
-const id3 = "3";
-const id4 = "4";
-
-const initial: PageStep[] = [
-  {
-    id: id1,
-    name: "Info",
-    type: "cover",
-  },
-  {
-    id: id2,
-    name: "Form 1",
-    type: "form",
-  },
-  {
-    id: id3,
-    name: "Form 2",
-    type: "form",
-  },
-  {
-    id: id4,
-    name: "Ending",
-    type: "ending",
-  },
-];
-
 interface PageStepState {
   pageSteps: PageStep[];
-  firstPageId: string;
-  activeId: string;
+  firstPageId?: string;
+  activeId?: string;
   add(data: Omit<PageStep, "id">, prevPageStepId?: PageStep["id"]): void;
   reorder(src: number, dst: number): void;
   select(id: string): void;
@@ -42,12 +14,22 @@ interface PageStepState {
   duplicate(id: string): void;
   remove(id: string): void;
   setAsFirstPage(id: string): void;
+  init(state: Partial<PageStepState>): void;
 }
 
 export const usePageStepStore = create<PageStepState>((set) => ({
-  pageSteps: initial,
-  activeId: id1,
-  firstPageId: id1,
+  pageSteps: [],
+  activeId: undefined,
+  firstPageId: undefined,
+  init(state: PageStepState) {
+    const initState = produce(state, (draftState) => {
+      if (!draftState.firstPageId) {
+        draftState.firstPageId = draftState.pageSteps[0]?.id;
+      }
+    });
+
+    set(initState);
+  },
   add: (data, prevPageStepId) =>
     set((s) => {
       const newPageStep = {

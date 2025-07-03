@@ -7,7 +7,6 @@ interface PageStepState {
   prevPageStepId?: PageStep["id"];
   showForm({ prevPageStepId }: { prevPageStepId?: PageStep["id"] }): void;
   hideForm(): void;
-  toggleForm(): void;
 }
 
 export const usePageStepForm = create<PageStepState>((set) => ({
@@ -17,5 +16,4 @@ export const usePageStepForm = create<PageStepState>((set) => ({
   showForm: ({ prevPageStepId }) =>
     set({ prevPageStepId, isShowingForm: true }),
   hideForm: () => set({ isShowingForm: false, prevPageStepId: undefined }),
-  toggleForm: () => set((s) => ({ isShowingForm: !s.isShowingForm })),
 }));
