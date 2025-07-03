@@ -1,17 +1,26 @@
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { Button } from "@headlessui/react";
-import { usePageStepStore } from "@/entities/page-step";
+import { usePageStepForm } from "@/entities/page-step/ui/page-step-form";
+import type { PageStep } from "@/entities/page-step";
 
-export function AddPageStepButton({ index }: { index: number }) {
-  const add = usePageStepStore((s) => s.add);
+interface AddPageStepButtonProps {
+  prevPageStepId?: PageStep["id"];
+}
+
+export function AddPageStepButton({ prevPageStepId }: AddPageStepButtonProps) {
+  const showForm = usePageStepForm((s) => s.showForm);
+
+  function handleShowForm() {
+    showForm({ prevPageStepId });
+  }
 
   return (
     <Button
-      title="Add page"
-      onClick={() => add(index)}
-      className="h-6 w-6 grid place-content-center rounded hover:bg-slate-200"
+      onClick={handleShowForm}
+      className="cursor-pointer flex justify-center items-center flex-grow-0 flex-shrink-0 h-8 gap-1.5 px-2.5 py-1 rounded-lg bg-white border-[0.5px] border-[#e1e1e1] text-[#1a1a1a] hover:bg-[#f1f1f1]"
     >
-      <PlusIcon className="w-4 h-4 text-slate-500" />
+      <PlusIcon className="w-4 h-4" />
+      <span>Add page</span>
     </Button>
   );
 }

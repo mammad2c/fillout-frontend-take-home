@@ -74,7 +74,7 @@ export function PageStepChip({
         onKeyDown={handleClick}
         layoutId={pageStep.id}
         className={clsx(
-          "flex justify-center items-center px-2.5 h-8 py-1 rounded-lg border-1 transition-background-color focus:border-[#2f72e2] focus:shadow-[0px_0px_0px_1.5px_rgba(47,114,226,0.25),_0px_1px_1px_rgba(0,0,0,0.02),_0px_1px_3px_rgba(0,0,0,0.04)]",
+          "pages-step-chip flex justify-center items-center px-2.5 h-8 py-1 rounded-lg border-1 transition-background-color focus:border-[#2f72e2] focus:shadow-[0px_0px_0px_1.5px_rgba(47,114,226,0.25),_0px_1px_1px_rgba(0,0,0,0.02),_0px_1px_3px_rgba(0,0,0,0.04)]",
           {
             "bg-[#9da4b2]/[0.15] border-transparent hover:bg-[#9da4b2]/[0.35]":
               !isActive,
@@ -101,7 +101,7 @@ export function PageStepChip({
           },
         }}
       >
-        <div className="flex justify-start items-center flex-grow-0 flex-shrink-0 relative gap-1.5">
+        <div className="flex justify-start items-center relative gap-1.5">
           <motion.span layout={!isSorting}>
             <PageStepIcon
               type={pageStep.type}
@@ -115,7 +115,7 @@ export function PageStepChip({
 
           <motion.p
             layout={!isSorting}
-            className="flex-grow-0 flex-shrink-0 text-sm font-medium text-center text-[#677289]"
+            className="text-sm font-medium text-center text-[#677289] whitespace-nowrap"
           >
             {pageStep.name}
           </motion.p>

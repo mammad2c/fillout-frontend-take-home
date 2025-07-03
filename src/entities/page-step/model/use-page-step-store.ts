@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import type { PageStep } from "./types";
 import { genId } from "@/shared/lib/id";
+import { produce } from "immer";
 
 const id1 = "1";
 const id2 = "2";
@@ -34,7 +35,7 @@ interface PageStepState {
   pageSteps: PageStep[];
   firstPageId: string;
   activeId: string;
-  add(index: number): void;
+  add(data: Omit<PageStep, "id">, prevPageStepId?: PageStep["id"]): void;
   reorder(src: number, dst: number): void;
   select(id: string): void;
   rename(id: string, title: string): void;
@@ -47,17 +48,28 @@ export const usePageStepStore = create<PageStepState>((set) => ({
   pageSteps: initial,
   activeId: id1,
   firstPageId: id1,
-  add: (index) =>
+  add: (data, prevPageStepId) =>
     set((s) => {
-      const newPageStep: PageStep = {
+      const newPageStep = {
         id: genId(),
-        name: "Untitled",
-        type: "form",
+        ...data,
       };
 
-      const pageSteps = [...s.pageSteps];
+      const pageSteps = produce(s.pageSteps, (draftState) => {
+        const prevPageStepIndex = prevPageStepId
+          ? draftState.findIndex((pageStep) => pageStep.id === prevPageStepId)
+          : -1;
 
-      pageSteps.splice(index, 0, newPageStep);
+        if (prevPageStepIndex !== -1) {
+          const prevPageStep = draftState[prevPageStepIndex];
+          const nextStepId = prevPageStep.nextStepId;
+          prevPageStep.nextStepId = newPageStep.id;
+          newPageStep.nextStepId = nextStepId;
+          draftState.splice(prevPageStepIndex + 1, 0, newPageStep);
+        } else {
+          draftState.push(newPageStep);
+        }
+      });
 
       return { pageSteps };
     }),
@@ -83,24 +95,44 @@ export const usePageStepStore = create<PageStepState>((set) => ({
   duplicate: (id) =>
     set((s) => {
       const idx = s.pageSteps.findIndex((p) => p.id === id);
+
       if (idx === -1) return {};
-      const copy: PageStep = { ...s.pageSteps[idx], id: genId() };
-      const pageSteps = [...s.pageSteps];
-      pageSteps.splice(idx + 1, 0, copy);
+
+      const pageSteps = produce(s.pageSteps, (draftState) => {
+        const pageStep = draftState[idx];
+        const copy = {
+          ...pageStep,
+          name: `${pageStep.name} copy`,
+          id: genId(),
+        };
+        draftState.splice(idx + 1, 0, copy);
+      });
+
       return { pageSteps };
     }),
   remove: (id) =>
-    set((s) => ({
-      pageSteps: s.pageSteps.filter((p) => p.id !== id),
-      activeId: s.activeId === id ? (s.pageSteps[0]?.id ?? "") : s.activeId,
-    })),
+    set((s) => {
+      const pageSteps = s.pageSteps.filter((p) => p.id !== id);
+      const activeId =
+        s.activeId === id ? (pageSteps[0]?.id ?? "") : s.activeId;
+
+      return {
+        pageSteps,
+        activeId,
+      };
+    }),
   setAsFirstPage: (id) =>
     set((s) => {
       const idx = s.pageSteps.findIndex((p) => p.id === id);
+
       if (idx === -1) return {};
-      const pageSteps = [...s.pageSteps];
-      pageSteps.splice(idx, 1);
-      pageSteps.unshift(s.pageSteps[idx]);
+
+      const pageSteps = produce(s.pageSteps, (draftState) => {
+        const pageStep = draftState[idx];
+        draftState.splice(idx, 1);
+        draftState.unshift(pageStep);
+      });
+
       return { pageSteps, firstPageId: id };
     }),
 }));

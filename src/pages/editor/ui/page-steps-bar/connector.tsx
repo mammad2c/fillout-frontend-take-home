@@ -2,7 +2,7 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import { motion } from "motion/react";
 
 const button = {
-  hidden: { opacity: 0, scale: 0.5, pointerEvents: "none" },
+  hidden: { opacity: 0, scale: 0.5 },
   show: {
     opacity: 1,
     scale: 1,
@@ -25,10 +25,16 @@ const dashedLine = {
 };
 
 interface ConnectorProps {
-  onClick?: () => void;
+  onClick?: (params?: unknown) => void;
 }
 
 export function Connector({ onClick }: ConnectorProps) {
+  function handleClick() {
+    if (!onClick) return;
+
+    onClick();
+  }
+
   return (
     <motion.div
       /* The wrapper orchestrates all child variants */
@@ -47,8 +53,8 @@ export function Connector({ onClick }: ConnectorProps) {
       <motion.button
         variants={button}
         aria-label="Insert step"
-        onClick={onClick}
-        className="absolute left-1/2 -translate-x-1/2 bg-white rounded-full shadow p-1"
+        onClick={handleClick}
+        className="absolute cursor-pointer hover:bg-gray-100 left-1/2 -translate-x-1/2 bg-white rounded-full shadow p-1"
       >
         <PlusIcon className="h-4 w-4 text-gray-600" />
       </motion.button>

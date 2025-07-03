@@ -16,12 +16,15 @@ import { PageStepChip } from "./page-step-chip";
 import { restrictToHorizontalAxis } from "@dnd-kit/modifiers";
 import { AddPageStepButton } from "./add-page-step-button";
 import { Connector } from "./connector";
+import { PageStepForm } from "@/entities/page-step";
+import { usePageStepForm } from "@/entities/page-step/ui/page-step-form";
 
 export function PageStepsBar() {
   const pageSteps = usePageStepStore((s) => s.pageSteps);
   const reorderPageSteps = usePageStepStore((s) => s.reorder);
   const selectPageStep = usePageStepStore((s) => s.select);
   const activeId = usePageStepStore((s) => s.activeId);
+  const showPageStepForm = usePageStepForm((s) => s.showForm);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -53,10 +56,16 @@ export function PageStepsBar() {
     selectPageStep(id);
   }
 
-  return (
-    <div className="bg-white border-b px-4 py-2 overflow-x-auto flex w-full">
-      <AddPageStepButton index={0} />
+  function onConnectorAddClick(params?: unknown) {
+    const id = typeof params === "string" ? params : undefined;
+    // handle the logic using id if needed
+    showPageStepForm({
+      prevPageStepId: id,
+    });
+  }
 
+  return (
+    <div className="bg-white border-b px-4 py-2 overflow-x-auto flex w-full flex items-center">
       <DndContext
         onDragEnd={handleDragEnd}
         modifiers={[restrictToHorizontalAxis]}
@@ -77,12 +86,19 @@ export function PageStepsBar() {
                   isActive={id === activeId}
                 />
 
-                {index < pageSteps.length - 1 && <Connector />}
+                {index < pageSteps.length - 1 && (
+                  <Connector onClick={() => onConnectorAddClick(id)} />
+                )}
               </div>
             );
           })}
         </SortableContext>
       </DndContext>
+
+      <Connector onClick={onConnectorAddClick} />
+      <AddPageStepButton />
+
+      <PageStepForm />
     </div>
   );
 }
