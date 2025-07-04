@@ -103,6 +103,11 @@ jobs:
       - name: Install Vercel CLI
         run: npm i -g vercel@latest
 
-      - name: Deploy Storybook to Vercel (static)
-        run: vercel deploy ./storybook-static \
-          --prod --token=$VERCEL_TOKEN --yes
+      - name: Deploy Storybook to Vercel
+        working-directory: storybook-static # <-- only path
+        run: |
+          vercel deploy \
+            --prod --yes \
+          --token=${{ secrets.VERCEL_TOKEN }} \
+          --org ${{ secrets.VERCEL_SB_ORG_ID }} \
+          --project ${{ secrets.VERCEL_SB_PROJECT_ID }}
