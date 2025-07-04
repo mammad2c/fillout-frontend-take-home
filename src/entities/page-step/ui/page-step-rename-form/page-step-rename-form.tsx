@@ -27,6 +27,8 @@ export function PageStepRenameForm({
 
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const formRef = useRef<HTMLFormElement>(null);
+
   const { handleSubmit, register } = useForm<FormInputs>({
     defaultValues: {
       name: pageStep.name,
@@ -51,6 +53,7 @@ export function PageStepRenameForm({
   const { ref: hookFormRef, onBlur, ...rest } = register("name");
 
   function handleClose() {
+    handleSubmit(onSubmit)();
     onClose();
   }
 
@@ -65,6 +68,7 @@ export function PageStepRenameForm({
       className={clsx(className)}
       onSubmit={handleSubmit(onSubmit)}
       autoComplete="off"
+      ref={formRef}
     >
       <Input
         ref={(e) => {

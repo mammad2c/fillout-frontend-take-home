@@ -25,13 +25,11 @@ const dashedLine = {
 };
 
 interface ConnectorProps {
-  onClick?: (params?: unknown) => void;
+  onClick: (params?: unknown) => void;
 }
 
 export function Connector({ onClick }: ConnectorProps) {
   function handleClick() {
-    if (!onClick) return;
-
     onClick();
   }
 

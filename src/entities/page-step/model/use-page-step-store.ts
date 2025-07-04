@@ -8,7 +8,7 @@ interface PageStepState {
   firstPageId?: string;
   activeId?: string;
   add(data: Omit<PageStep, "id">, prevPageStepId?: PageStep["id"]): void;
-  reorder(src: number, dst: number): void;
+  reorder(src: PageStep["id"], dst: PageStep["id"]): void;
   select(id: string): void;
   rename(id: string, title: string): void;
   duplicate(id: string): void;
@@ -55,11 +55,18 @@ export const usePageStepStore = create<PageStepState>((set) => ({
 
       return { pageSteps };
     }),
-  reorder: (src, dst) =>
+  reorder: (srcId, dstId) =>
     set((s) => {
-      const pageSteps = Array.from(s.pageSteps);
-      const [item] = pageSteps.splice(src, 1);
-      pageSteps.splice(dst, 0, item);
+      if (srcId === dstId) return {};
+
+      if (!srcId || !dstId) return {};
+
+      const pageSteps = produce(s.pageSteps, (draftState) => {
+        const src = draftState.findIndex((p) => p.id === srcId);
+        const dst = draftState.findIndex((p) => p.id === dstId);
+        const [item] = draftState.splice(src, 1);
+        draftState.splice(dst, 0, item);
+      });
 
       let firstPageId = s.firstPageId;
 

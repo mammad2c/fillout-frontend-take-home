@@ -19,24 +19,24 @@ interface PageStepIconProps {
 export function PageStepIcon({ type, ...rest }: PageStepIconProps) {
   switch (type) {
     case "cover":
-      return <InformationCircleIcon {...rest} />;
+      return <InformationCircleIcon {...rest} aria-label="cover-icon" />;
 
     case "ending":
-      return <CheckCircleIcon {...rest} />;
+      return <CheckCircleIcon {...rest} aria-label="ending-icon" />;
 
     case "form":
-      return <DocumentTextIcon {...rest} />;
+      return <DocumentTextIcon {...rest} aria-label="form-icon" />;
 
     case "login":
-      return <LockClosedIcon {...rest} />;
+      return <LockClosedIcon {...rest} aria-label="login-icon" />;
 
     case "payment":
-      return <CreditCardIcon {...rest} />;
+      return <CreditCardIcon {...rest} aria-label="payment-icon" />;
 
     case "scheduling":
-      return <CalendarDaysIcon {...rest} />;
+      return <CalendarDaysIcon {...rest} aria-label="scheduling-icon" />;
 
     case "submission_review":
-      return <EyeIcon {...rest} />;
+      return <EyeIcon {...rest} aria-label="submission-review-icon" />;
   }
 }

@@ -12,7 +12,7 @@ import { PageStepIcon, usePageStepStore } from "@/entities/page-step";
 import { motion } from "motion/react";
 import { ContextMenu } from "@/shared/ui/context-menu";
 import { useState } from "react";
-import { PageStepRenameForm } from "../../../../entities/page-step/ui/page-step-rename-form/page-step-rename-form";
+import { PageStepRenameForm } from "@/entities/page-step/ui/page-step-rename-form/page-step-rename-form";
 
 interface PageStepChipProps {
   pageStep: PageStep;

@@ -39,16 +39,7 @@ export function PageStepsBar() {
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
 
-    if (!over) {
-      return;
-    }
-
-    if (active.id !== over?.id) {
-      const oldIndex = pageSteps.findIndex((p) => p.id === active.id);
-      const newIndex = pageSteps.findIndex((p) => p.id === over.id);
-
-      reorderPageSteps(oldIndex, newIndex);
-    }
+    reorderPageSteps(active.id as string, over?.id as string);
   }
 
   function onConnectorAddClick(params?: unknown) {
