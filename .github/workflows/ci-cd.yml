@@ -73,3 +73,36 @@ jobs:
 
       - name: Deploy pre-built output
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+  deploy-storybook:
+    needs: build
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22.x]
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_SB_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_SB_PROJECT_ID }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - name: Install deps
+        run: npm ci
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - name: Install Vercel CLI
+        run: npm i -g vercel@latest
+
+      - name: Deploy Storybook to Vercel (static)
+        run: vercel deploy ./storybook-static \
+          --prod --token=$VERCEL_TOKEN --yes
