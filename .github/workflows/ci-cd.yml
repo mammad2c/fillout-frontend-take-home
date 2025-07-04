@@ -54,7 +54,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install Vercel CLI
-        run: npm install --global vercel@latest
+        run: node --version && npm install --global vercel@latest
 
       - name: Pull env & project settings
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
