@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { type PageStep } from "../../model/types";
 
-interface PageStepState {
+interface PageStepFormState {
   isShowingForm: boolean;
   formType: "create" | "edit";
   prevPageStepId?: PageStep["id"];
@@ -9,7 +9,7 @@ interface PageStepState {
   hideForm(): void;
 }
 
-export const usePageStepForm = create<PageStepState>((set) => ({
+export const usePageStepForm = create<PageStepFormState>((set) => ({
   isShowingForm: false,
   formType: "create",
   prevPageStepId: undefined,

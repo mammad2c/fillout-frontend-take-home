@@ -22,7 +22,6 @@ import { usePageStepForm } from "@/entities/page-step/ui/page-step-form";
 export function PageStepsBar() {
   const pageSteps = usePageStepStore((s) => s.pageSteps);
   const reorderPageSteps = usePageStepStore((s) => s.reorder);
-  const selectPageStep = usePageStepStore((s) => s.select);
   const activeId = usePageStepStore((s) => s.activeId);
   const showPageStepForm = usePageStepForm((s) => s.showForm);
 
@@ -52,10 +51,6 @@ export function PageStepsBar() {
     }
   }
 
-  function handleSelect(id: string) {
-    selectPageStep(id);
-  }
-
   function onConnectorAddClick(params?: unknown) {
     const id = typeof params === "string" ? params : undefined;
     // handle the logic using id if needed
@@ -80,11 +75,7 @@ export function PageStepsBar() {
 
             return (
               <div key={id} className="flex items-center">
-                <PageStepChip
-                  pageStep={p}
-                  onSelect={handleSelect}
-                  isActive={id === activeId}
-                />
+                <PageStepChip pageStep={p} isActive={id === activeId} />
 
                 {index < pageSteps.length - 1 && (
                   <Connector onClick={() => onConnectorAddClick(id)} />

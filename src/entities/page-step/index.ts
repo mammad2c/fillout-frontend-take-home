@@ -5,3 +5,4 @@ export { type PageStep } from "./model/types";
 // ui
 export { PageStepIcon } from "./ui/page-step-icon";
 export { PageStepForm } from "./ui/page-step-form";
+export { PageStepRenameForm } from "./ui/page-step-rename-form";

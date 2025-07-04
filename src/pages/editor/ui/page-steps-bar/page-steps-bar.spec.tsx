@@ -214,6 +214,40 @@ describe(PageStepsBar.name, () => {
     });
   });
 
+  it("should rename page step from context menu", async () => {
+    // Arrange
+    const { user, getByText, getByLabelText } = renderComponent(
+      <PageStepsBar />,
+    );
+
+    const form1 = getByText("Form 1");
+
+    // Act
+
+    // first we select the page step
+    await user.click(form1);
+
+    // then we bring input
+    await user.click(form1);
+
+    // await waitFor(() => {
+    //   expect(document.querySelector("input")).toBeInTheDocument();
+    // });
+
+    // Assert
+    await waitFor(async () => {
+      const input = getByLabelText("Page step name");
+
+      await user.clear(input);
+      await user.type(input, "Renamed");
+      await user.keyboard("{Enter}");
+    });
+
+    await waitFor(() => {
+      expect(getByText("Renamed")).toBeInTheDocument();
+    });
+  });
+
   it("should delete page step", async () => {
     // Arrange
     const { user, getByText, queryByText } = renderComponent(<PageStepsBar />);
