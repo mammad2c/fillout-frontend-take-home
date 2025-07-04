@@ -13,10 +13,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4 # ⬆️ v2 → v4
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4 # ⬆️ v1 → v4
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
@@ -34,7 +34,7 @@ jobs:
         run: npm run format:check
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install
 
       - name: Run unit tests
         run: npm run test:unit
@@ -47,7 +47,7 @@ jobs:
 
   deploy:
     needs: build
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     runs-on: ubuntu-latest
 
     steps:
