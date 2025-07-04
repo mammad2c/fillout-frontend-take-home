@@ -20,7 +20,7 @@ export default defineConfig({
         "**/node_modules/**",
         "**/dist/**",
         "**/e2e/**",
-        "src/pages/**.page.{tsx,ts}",
+        "src/pages/**/*.page.{tsx,ts}",
       ],
       thresholds: {
         statements: 80,
