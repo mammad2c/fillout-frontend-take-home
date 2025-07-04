@@ -49,3 +49,24 @@ export const Default: Story = {
     );
   },
 };
+
+export const WithTitle: Story = {
+  args: {
+    items: [
+      { label: "Edit", onClick: () => {} },
+      { label: "Delete", onClick: () => {} },
+    ],
+    title: <h2>Title</h2>,
+  },
+  render: (args) => {
+    return (
+      <div>
+        <ContextMenu {...args}>
+          <Button className="bg-blue-500 text-white p-2 rounded">
+            Open Context Menu
+          </Button>
+        </ContextMenu>
+      </div>
+    );
+  },
+};

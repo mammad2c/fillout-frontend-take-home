@@ -33,12 +33,15 @@ export interface ContextMenuProps {
   items: ContextMenuItem[];
   /** Extra Tailwind classes for the menu container */
   className?: string;
+  /** Optional title for the menu */
+  title?: React.ReactNode;
 }
 
 export function ContextMenu({
   children,
   items,
   className = "",
+  title,
 }: ContextMenuProps) {
   return (
     <RadixContextMenu>
@@ -48,11 +51,16 @@ export function ContextMenu({
       <Portal>
         <Content
           className={clsx(
-            "min-w-[220px] overflow-hidden rounded-md bg-white shadow-[0px_10px_38px_-10px_rgba(22,23,24,0.35),_0px_10px_20px_-15px_rgba(22,23,24,0.2)]",
+            "min-w-[220px] overflow-hidden bg-white rounded-xl bg-white border-[0.5px] border-[#e1e1e1]",
             className,
           )}
           sticky="always"
         >
+          {title && (
+            <div className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-10 relative overflow-hidden gap-1 p-3 border-t-0 border-r-0 border-b-[0.5px] border-l-0 border-[#e1e1e1] text-[#1a1a1a]">
+              {title}
+            </div>
+          )}
           {items.map((item, index) => {
             if ("divider" in item) {
               return (
@@ -70,7 +78,7 @@ export function ContextMenu({
                 onSelect={onClick}
                 disabled={disabled}
                 className={clsx(
-                  "group relative flex select-none items-center rounded-[3px] p-[7px] text-[13px] leading-none outline-none data-[disabled]:pointer-events-none",
+                  "group relative flex select-none items-center py-[7px] px-3 text-sm leading-none outline-none data-[disabled]:pointer-events-none",
                   "data-[highlighted]:bg-slate-100",
                   danger
                     ? "text-red-600 data-[highlighted]:text-red-700"
