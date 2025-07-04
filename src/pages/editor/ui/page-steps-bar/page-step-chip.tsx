@@ -76,6 +76,7 @@ export function PageStepChip({ pageStep, isActive }: PageStepChipProps) {
 
   return (
     <ContextMenu
+      title="Settings"
       items={[
         {
           label: (
