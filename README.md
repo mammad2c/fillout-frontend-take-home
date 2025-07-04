@@ -9,13 +9,9 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+
+Required engine: `node >= 22.0.0` and `npm >= 10.0.0`
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
@@ -27,7 +23,16 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## Architecture
+
+This project uses [Feature Sliced Design](https://feature-sliced.github.io/documentation/docs/getting-started/what-is-feature-sliced-design) to structure the codebase.
+
+[Learn more](https://feature-sliced.github.io/documentation/docs/getting-started/what-is-feature-sliced-design).
+
+I have created README files for all folder almost to understand the structure.
+If you had any questions, please reach out to me.
+
+## Learn More about Next.js
 
 To learn more about Next.js, take a look at the following resources:
 
