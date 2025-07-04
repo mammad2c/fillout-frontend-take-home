@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { usePageStepSeed } from "@/entities/page-step";
 
 const meta: Meta<typeof PageStepsBar> = {
-  title: "Widgets/PageStepsBar",
+  title: "Pages/Editor/UI/PageStepsBar",
   component: PageStepsBar,
   tags: ["autodocs"],
 };
