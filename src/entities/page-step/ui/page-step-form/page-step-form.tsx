@@ -101,7 +101,7 @@ export function PageStepForm() {
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
     addPageStep(data, prevPageStepId);
-    hideForm();
+    handleClose();
   };
 
   // we need to use a ref to focus the input
