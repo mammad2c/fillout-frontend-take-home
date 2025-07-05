@@ -1,6 +1,12 @@
 [![CI/CD](https://github.com/mammad2c/fillout-frontend-take-home/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/mammad2c/fillout-frontend-take-home/actions/workflows/ci-cd.yml)
 [![codecov](https://codecov.io/gh/mammad2c/fillout-frontend-take-home/graph/badge.svg?token=5R4MW254MI)](https://codecov.io/gh/mammad2c/fillout-frontend-take-home)
 
+# Deployments
+
+Project deployed on [Vercel](https://fillout-frontend-take-home-eta.vercel.app)
+
+Storybook deployed on [Vercel](https://storybook-fillout-frontend-take-hom.vercel.app)
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
 
 ## Getting Started
