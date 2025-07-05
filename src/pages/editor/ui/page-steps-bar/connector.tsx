@@ -49,14 +49,13 @@ export function Connector({ onClick }: ConnectorProps) {
       />
 
       {/* The “insert” button that appears on hover */}
-      <motion.button
+      <motion.div
         variants={button}
-        aria-label="Insert step"
         onClick={handleClick}
         className="absolute cursor-pointer hover:bg-gray-100 left-1/2 -translate-x-1/2 bg-white rounded-full shadow p-1"
       >
         <PlusIcon className="h-4 w-4 text-gray-600" />
-      </motion.button>
+      </motion.div>
     </motion.div>
   );
 }
