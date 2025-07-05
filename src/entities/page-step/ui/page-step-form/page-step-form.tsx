@@ -17,6 +17,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/shared/ui/button";
 import { usePageStepForm } from "./use-page-step-form";
 import { usePageStepStore } from "../../model/use-page-step-store";
+import { PageStepIcon } from "../page-step-icon";
+import type { PageStep } from "../../model/types";
 
 const schema = z.object({
   name: z.string().min(1, { message: "Name cannot be empty" }),
@@ -124,6 +126,7 @@ export function PageStepForm() {
       onClose={handleClose}
       initialFocus={nameRef}
       title="Create Page"
+      size="lg"
     >
       <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         <Field>
@@ -166,9 +169,14 @@ export function PageStepForm() {
                   <div className="flex w-full items-center justify-between overflow-hidden">
                     <div className="text-sm/6 max-w-[80%]">
                       <p
-                        className="font-semibold text-white"
+                        className="font-semibold text-white flex items-center"
                         aria-label={label}
                       >
+                        <PageStepIcon
+                          className="h-4 w-4 mr-1"
+                          type={value as PageStep["type"]}
+                        />
+
                         {label}
                       </p>
                       <p className="truncate">{description}</p>
