@@ -18,6 +18,7 @@ import { AddPageStepButton } from "./add-page-step-button";
 import { Connector } from "./connector";
 import { PageStepForm } from "@/entities/page-step";
 import { usePageStepForm } from "@/entities/page-step/ui/page-step-form";
+import { motion } from "motion/react";
 
 export function PageStepsBar() {
   const pageSteps = usePageStepStore((s) => s.pageSteps);
@@ -61,23 +62,26 @@ export function PageStepsBar() {
           items={pageSteps}
           strategy={horizontalListSortingStrategy}
         >
-          {pageSteps.map((p, index) => {
+          {pageSteps.map((p) => {
             const { id } = p;
 
             return (
-              <div key={id} className="flex items-center">
+              <motion.div
+                key={id}
+                className="flex items-center"
+                initial="hidden"
+                animate="hidden"
+                whileHover="show"
+              >
                 <PageStepChip pageStep={p} isActive={id === activeId} />
 
-                {index < pageSteps.length - 1 && (
-                  <Connector onClick={() => onConnectorAddClick(id)} />
-                )}
-              </div>
+                <Connector onClick={() => onConnectorAddClick(id)} />
+              </motion.div>
             );
           })}
         </SortableContext>
       </DndContext>
 
-      <Connector onClick={onConnectorAddClick} />
       <AddPageStepButton />
 
       <PageStepForm />

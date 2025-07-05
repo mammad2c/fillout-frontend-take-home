@@ -36,11 +36,7 @@ export function Connector({ onClick }: ConnectorProps) {
   return (
     <motion.div
       /* The wrapper orchestrates all child variants */
-      initial="hidden"
-      whileHover="show"
       className="relative inline-flex items-center select-none py-1.5"
-      transition={{ delay: 1 }}
-      aria-hidden
     >
       {/* 20-pixel dashed line */}
       <motion.div
@@ -49,14 +45,14 @@ export function Connector({ onClick }: ConnectorProps) {
       />
 
       {/* The “insert” button that appears on hover */}
-      <motion.div
+      <motion.button
         variants={button}
         onClick={handleClick}
         aria-label="Insert page step"
         className="absolute cursor-pointer hover:bg-gray-100 left-1/2 -translate-x-1/2 bg-white rounded-full shadow p-1"
       >
         <PlusIcon className="h-4 w-4 text-gray-600" />
-      </motion.div>
+      </motion.button>
     </motion.div>
   );
 }
