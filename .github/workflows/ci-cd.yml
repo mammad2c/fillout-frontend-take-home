@@ -97,17 +97,16 @@ jobs:
 
       - name: Install deps
         run: npm ci
+
       - name: Build Storybook
         run: npm run build-storybook
 
       - name: Install Vercel CLI
         run: npm i -g vercel@latest
 
+      - name: Pull env & project settings
+        run: vercel link --yes --project storybook-fillout-frontend-take-home --token=${{ secrets.VERCEL_TOKEN }}
+
       - name: Deploy Storybook to Vercel
-        working-directory: storybook-static # <-- only path
         run: |
-          vercel deploy \
-            --prod --yes \
-          --token=${{ secrets.VERCEL_TOKEN }} \
-          --org ${{ secrets.VERCEL_SB_ORG_ID }} \
-          --project ${{ secrets.VERCEL_SB_PROJECT_ID }}
+          vercel deploy --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
