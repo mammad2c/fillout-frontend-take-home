@@ -67,12 +67,22 @@ export function PageStepChip({ pageStep, isActive }: PageStepChipProps) {
     }
   }
 
-  function handleClick() {
+  function handleSelect() {
     if (!isActive) {
       selectPageStep(id);
       return;
     }
   }
+
+  function handleNameClick() {
+    if (isActive) {
+      setShowRenameForm(true);
+    }
+  }
+
+  const contentTransitionLayout = {
+    duration: isDragging || isSorting ? 0 : 0.25,
+  };
 
   return (
     <ContextMenu
@@ -123,8 +133,8 @@ export function PageStepChip({ pageStep, isActive }: PageStepChipProps) {
         ref={setNodeRef}
         {...attributes}
         {...listeners}
-        onClick={handleClick}
-        onKeyDown={handleClick}
+        onClick={handleSelect}
+        onKeyDown={handleSelect}
         layoutId={id}
         className={clsx(
           "pages-step-chip overflow-hidden relative flex justify-center items-center px-2.5 h-8 py-1 rounded-lg border-1 transition-background-color focus:border-[#2f72e2] focus:shadow-[0px_0px_0px_1.5px_rgba(47,114,226,0.25),_0px_1px_1px_rgba(0,0,0,0.02),_0px_1px_3px_rgba(0,0,0,0.04)]",
@@ -149,13 +159,10 @@ export function PageStepChip({ pageStep, isActive }: PageStepChipProps) {
           zIndex: {
             delay: isDragging ? 0 : 0.25,
           },
-          boxShadow: {
-            delay: isDragging ? 0 : 0.25,
-          },
         }}
       >
         <div className="flex justify-start items-center relative gap-1.5">
-          <motion.span layout={!isSorting}>
+          <motion.span layout transition={contentTransitionLayout}>
             <PageStepIcon
               type={type}
               className={clsx("w-5 h-5 page-step-chip-icon", {
@@ -167,12 +174,10 @@ export function PageStepChip({ pageStep, isActive }: PageStepChipProps) {
           </motion.span>
 
           <motion.p
-            layout={!isSorting}
-            onClick={() => {
-              if (isActive) {
-                setShowRenameForm(true);
-              }
-            }}
+            layout
+            transition={contentTransitionLayout}
+            onKeyDown={handleNameClick}
+            onClick={handleNameClick}
             className="text-sm font-medium text-center text-[#677289] whitespace-nowrap"
           >
             {name}
