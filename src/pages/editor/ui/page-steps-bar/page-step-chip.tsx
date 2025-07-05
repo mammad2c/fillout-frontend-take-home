@@ -146,6 +146,7 @@ export function PageStepChip({ pageStep, isActive }: PageStepChipProps) {
                 !isActive,
               "bg-white border-[#e1e1e1] active": isActive,
               "cursor-grabbing": isDragging,
+              "cursor-pointer": !isDragging,
             },
           )}
           animate={

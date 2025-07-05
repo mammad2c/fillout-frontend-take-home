@@ -7,7 +7,7 @@ const button = {
     opacity: 1,
     scale: 1,
     transition: {
-      delay: 0.3,
+      delay: 0.5,
     },
   },
 };
@@ -19,7 +19,7 @@ const dashedLine = {
   show: {
     width: 56,
     transition: {
-      delay: 0.3,
+      delay: 0.5,
     },
   },
 };
