@@ -52,6 +52,7 @@ export function Connector({ onClick }: ConnectorProps) {
       <motion.div
         variants={button}
         onClick={handleClick}
+        aria-label="Insert page step"
         className="absolute cursor-pointer hover:bg-gray-100 left-1/2 -translate-x-1/2 bg-white rounded-full shadow p-1"
       >
         <PlusIcon className="h-4 w-4 text-gray-600" />

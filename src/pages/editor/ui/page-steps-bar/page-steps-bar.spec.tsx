@@ -139,7 +139,7 @@ describe(PageStepsBar.name, () => {
     );
 
     // Act
-    await user.click(getAllByLabelText("Insert step")[0]);
+    await user.click(getAllByLabelText("Insert page step")[0]);
 
     // Assert
     await waitFor(() => {
@@ -265,6 +265,7 @@ describe(PageStepsBar.name, () => {
     });
 
     await user.click(getByText("Delete"));
+    await user.click(getByText("Yes"));
 
     // Assert
     await waitFor(() => {
